@@ -16,6 +16,6 @@ public class SampleController {
     @GetMapping("/hello")
     public String hello() {
         logger.info("hey log");
-        return "hello" + sampleService.getName();
+        return "hello change" + sampleService.getName();
     }
 }
