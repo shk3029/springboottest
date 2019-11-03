@@ -1,13 +1,16 @@
 package me.js.springboottest.sample;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.rule.OutputCapture;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -22,6 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
      서블릿 컨테이너를 테스트용으로 띄우지 않고, 서블릿을 목킹한게 뜸 -> 서블릿에 인터랙션을 하려면 MockMvc 클라이언트를 꼭 사용해야함
  */
 public class SampleControllerTest {
+    // 로그를 검증
+    @Rule
+    public OutputCapture outputCapture = new OutputCapture();
+
     @Autowired
     MockMvc mockMvc;
 
@@ -31,5 +38,7 @@ public class SampleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("hellojongseon"))
                 .andDo(print());
+
+        assertThat(outputCapture.toString().contains("hey log"));
     }
 }
