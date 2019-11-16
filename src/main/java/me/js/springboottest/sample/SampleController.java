@@ -1,11 +1,10 @@
 package me.js.springboottest.sample;
 
+import me.js.springboottest.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class SampleController {
@@ -13,9 +12,14 @@ public class SampleController {
     @Autowired
     private SampleService sampleService;
 
-    @GetMapping("/hello")
+    @GetMapping("/hello2")
     public String hello() {
         logger.info("hey log");
         return "hello change" + sampleService.getName();
+    }
+
+    @PostMapping("/user")
+    public User create(@RequestBody User user) {
+        return null;
     }
 }
